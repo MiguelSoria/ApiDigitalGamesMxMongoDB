@@ -109,7 +109,7 @@ api.post('/upload', async(req: Request, res: Response, next: NextFunction) => {
       return res.status(400).json({
           status: 'Bad Request',
           code: 400,
-          environment: settings.api.environment,
+          environment: settings.api.enviroment,
           msg: `Es necesario adjuntar por lo menos 1 archivos`
       });
   }
@@ -129,27 +129,6 @@ api.post('/upload', async(req: Request, res: Response, next: NextFunction) => {
       //    }
     //  });    
   //});
-  
-  // Un solo archivo
-  let fileError = req.files.error;
-  // // Use the mv() method to place the file somewhere on your server
-   fileError.mv(`./uploads/${fileError.name}`, (err: any) => {
-       if (err) {
-          return res.status(500).json({
-           status: 'Internal Server Error',
-              code: 500,
-              environment: settings.api.environment,
-              msg: `Ocurrio un error al intentar guardar el archivo en el servidor`
-          });
-     }
-  });   
-
-  res.status(200).json({
-      status: 'success',
-      code: 200,
-      environment: settings.api.environment,
-      msg: `El archivo se cargo de forma correcta`
-  });    
 
 });
 export default api;

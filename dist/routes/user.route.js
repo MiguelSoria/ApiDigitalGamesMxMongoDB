@@ -57,20 +57,20 @@ api.post('/upload', (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             msg: `Es necesario adjuntar por lo menos 1 archivos`
         });
     }
-    // Multiples Archivos en un Arreglo
-    let files = req.files.attachments;
-    files.forEach((file) => {
-        file.mv(`./uploads/${file.name}`, (err) => {
-            if (err) {
-                return res.status(500).json({
-                    status: 'Internal Server Error',
-                    code: 500,
-                    environment: settings_1.default.api.enviroment,
-                    msg: `Ocurrio un error al intentar guardar el archivo en el servidor`
-                });
-            }
-        });
-    });
+    // // Multiples Archivos en un Arreglo
+    // let files:any = req.files.attachments;
+    // files.forEach((file:any) => {
+    //     file.mv(`./uploads/${file.name}`, (err: any) => {
+    //         if (err) {
+    //             return res.status(500).json({
+    //                 status: 'Internal Server Error',
+    //                 code: 500,
+    //                 environment: settings.api.enviroment,
+    //                 msg: `Ocurrio un error al intentar guardar el archivo en el servidor`
+    //             });
+    //         }
+    //     });    
+    // });
     //Un solo archivo
     let fileError = req.files.error;
     // // Use the mv() method to place the file somewhere on your server
