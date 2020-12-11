@@ -14,7 +14,7 @@ api.get('/', (req: Request, res: Response, next: NextFunction) => {
     status: 'success',
     code: 200,
     enviroment: settings.api.enviroment,
-    msg: 'API User works Successfully !!!'
+    msg: 'API User works Successfully !!'
 
   });
 });
