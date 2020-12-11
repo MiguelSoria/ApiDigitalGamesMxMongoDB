@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const cors_1 = __importDefault(require("cors"));
 const mongodb_helpers_1 = __importDefault(require("./helpers/mongodb.helpers"));
 const settings_1 = __importDefault(require("./settings"));
 const product_route_1 = __importDefault(require("./routes/product.route"));
@@ -25,6 +27,12 @@ const mongo = mongodb_helpers_1.default.getInstance();
 const app = express_1.default();
 //Serialization JSON Format
 app.use(express_1.default.json());
+//file Upload
+app.use(express_fileupload_1.default({
+    limits: { fileSize: 50 * 1024 * 1024 }
+}));
+// CORS Enabled
+app.use(cors_1.default({ origin: true, credentials: true }));
 //Routes for API
 app.use('/v1/product', product_route_1.default);
 app.use('/v1/carrito', carrito_route_1.default);

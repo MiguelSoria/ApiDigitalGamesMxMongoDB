@@ -48,4 +48,47 @@ api.post('/add', (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         rowsAffected: result
     });
 }));
+api.post('/upload', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).json({
+            status: 'Bad Request',
+            code: 400,
+            environment: settings_1.default.api.enviroment,
+            msg: `Es necesario adjuntar por lo menos 1 archivos`
+        });
+    }
+    // Multiples Archivos en un Arreglo
+    let files = req.files.attachments;
+    files.forEach((file) => {
+        file.mv(`./uploads/${file.name}`, (err) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'Internal Server Error',
+                    code: 500,
+                    environment: settings_1.default.api.enviroment,
+                    msg: `Ocurrio un error al intentar guardar el archivo en el servidor`
+                });
+            }
+        });
+    });
+    //Un solo archivo
+    let fileError = req.files.error;
+    // // Use the mv() method to place the file somewhere on your server
+    fileError.mv(`./uploads/${fileError.name}`, (err) => {
+        if (err) {
+            return res.status(500).json({
+                status: 'Internal Server Error',
+                code: 500,
+                environment: settings_1.default.api.enviroment,
+                msg: `Ocurrio un error al intentar guardar el archivo en el servidor`
+            });
+        }
+    });
+    res.status(200).json({
+        status: 'success',
+        code: 200,
+        environment: settings_1.default.api.enviroment,
+        msg: `El archivo se cargo de forma correcta`
+    });
+}));
 exports.default = api;

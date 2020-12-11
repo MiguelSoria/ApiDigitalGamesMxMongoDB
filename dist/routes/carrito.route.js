@@ -24,7 +24,7 @@ api.get('/', (req, res, next) => {
         status: 'success',
         code: 200,
         enviroment: settings_1.default.api.enviroment,
-        msg: 'API User works Successfully !!!'
+        msg: 'API User works Successfully !!'
     });
 });
 api.get('/getAll/:pageNumber/:pagesize/:criterio', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -51,7 +51,6 @@ api.get('/getAll/:pageNumber/:pagesize/:criterio', (req, res, next) => __awaiter
 }));
 api.post('/add', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { idUsuario, idproducto, cantidad } = req.body;
-    const _idproducto = idproducto;
     //Insert datos carrito on MongoDB
     const result = yield mongo.db.collection('carrito').insertOne({
         idUsuario, idproducto, cantidad
@@ -89,10 +88,10 @@ api.put('/edit', (req, res, next) => __awaiter(void 0, void 0, void 0, function*
 }));
 api.delete('/remove', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // to do logic Remove with findOneAndUpdate
-    const { uid } = req.body;
+    const { uid, cantidad } = req.body;
     const _id = new mongodb_1.default.ObjectID(uid);
     mongo.setDataBase('dbmtwdm');
-    const carrito = yield mongo.db.collection('carrito').remove({ _id });
+    const carrito = yield mongo.db.collection('carrito').deleteOne({ _id });
     res.status(200).json({
         status: 'success',
         enviroment: settings_1.default.api.enviroment,
